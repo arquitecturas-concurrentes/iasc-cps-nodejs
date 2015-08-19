@@ -4,9 +4,21 @@ var http = require("http"),
     fs = require("fs")
 
 function writeError(err, response) {
-    response.writeHead(500, {"Content-Type": "text/plain"});
-    response.write(err + "\n");
+    writeResponse({ status: 500, contentType: "text/plain", content: err + "\n" })
+}
+
+function writeResponse(data, response) {
+    response.writeHead(data.status, data.contentType);
+    response.write(data.content, data.mode);
     response.end();
+}
+
+function trueFilenameFor(stats, filename) {
+    if (stats.isDirectory()) { 
+        return filename + '/index.html';
+    } else {
+        return filename;
+    }
 }
 
 port = process.argv[2] || 8080;
@@ -24,9 +36,7 @@ http.createServer(function (request, response) {
 
     fs.exists(filename, function (exists) {
         if (!exists) {
-            response.writeHead(404, {"Content-Type": "text/plain"});
-            response.write("404 Not Found\n");
-            response.end();
+            writeResponse({ status: 400, contentType: "text/plain", content:  "404 Not Found\n" }, response);
             return;
         }
 
@@ -36,25 +46,19 @@ http.createServer(function (request, response) {
                 return;
             }
 
-            var trueFilename;
-            if (stats.isDirectory()) { 
-                trueFilename = filename + '/index.html';
-            } else {
-                trueFilename = filename;
-            }
+            var trueFilename = trueFilenameFor(stats, filename);
 
             fs.readFile(trueFilename, "binary", function (err, file) {
                 if (err) {
                     writeError(err, response);
                     return;
                 }
-
-                var headers = {};
-                var contentType = contentTypesByExtension[path.extname(trueFilename)];
-                if (contentType) headers["Content-Type"] = contentType;
-                response.writeHead(200, headers);
-                response.write(file, "binary");
-                response.end();
+                writeResponse({ 
+                    status: 200, 
+                    contentType: contentTypesByExtension[path.extname(trueFilename)] || "text/plain", 
+                    content:  file, 
+                    mode: "binary" }, 
+                response);
             });
         });
     });
