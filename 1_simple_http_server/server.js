@@ -3,6 +3,12 @@ var http = require("http"),
     path = require("path"),
     fs = require("fs")
 
+function writeError(err, response) {
+    response.writeHead(500, {"Content-Type": "text/plain"});
+    response.write(err + "\n");
+    response.end();
+}
+
 port = process.argv[2] || 8080;
 
 http.createServer(function (request, response) {
@@ -26,12 +32,10 @@ http.createServer(function (request, response) {
 
         fs.stat(filename, function (err, stats) {
             if (err) {
-                response.writeHead(500, {"Content-Type": "text/plain"});
-                response.write(err + "\n");
-                response.end();
+                writeError(err, response);
                 return;
             }
-            
+
             var trueFilename;
             if (stats.isDirectory()) { 
                 trueFilename = filename + '/index.html';
@@ -41,9 +45,7 @@ http.createServer(function (request, response) {
 
             fs.readFile(trueFilename, "binary", function (err, file) {
                 if (err) {
-                    response.writeHead(500, {"Content-Type": "text/plain"});
-                    response.write(err + "\n");
-                    response.end();
+                    writeError(err, response);
                     return;
                 }
 
