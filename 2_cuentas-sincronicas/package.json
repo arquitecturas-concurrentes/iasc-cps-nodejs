@@ -1,0 +1,10 @@
+{
+  "name": "cuentas-sincronicas",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha spec/**/*-spec.js"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.5"
+  }
+}
