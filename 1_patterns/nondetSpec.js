@@ -1,6 +1,6 @@
 var assert = require("assert");
 
-describe("no determinsmo con continuaciones", function(){
+describe("no determinismo con continuaciones", function(){
 
   it("un solo resultado", function() {
     var resultados = findall(function(cont) {
