@@ -1,22 +1,22 @@
 var assert = require("assert");
 
-describe("no determinsmo con continuaciones", function(){
-  
-  it("un solo resultado", function() { 
+describe("no determinismo con continuaciones", function(){
+
+  it("un solo resultado", function() {
     var resultados = findall(function(cont) {
       progenitoresComunes("pedro", "maria", cont)
     });
     assert.deepEqual(resultados, ["ana"]);
   })
 
-  it("multiples resultados", function() { 
+  it("multiples resultados", function() {
     var resultados = findall(function(cont) {
       progenitoresComunes("estela", "maria", cont)
     });
     assert.deepEqual(resultados, ["ana", "mario"]);
   })
 
-  it("ningun resultado", function() { 
+  it("ningun resultado", function() {
     var resultados = findall(function(cont) {
       progenitoresComunes("rodolfo", "maria", cont)
     });
@@ -34,7 +34,7 @@ function progenitor(x, cont) {
   } else if (x === "estela") {
     cont("ana");
     cont("mario");
-  } 
+  }
 }
 
 function progenitoresComunes(x, y, cont) {
