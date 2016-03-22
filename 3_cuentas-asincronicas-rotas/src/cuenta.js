@@ -19,12 +19,19 @@ Cuenta.prototype = {
         var self = this;
         doLater(function () {
             //if(self._monto < _monto) throw new Error("ups")
-            if (self._monto < _monto) {
+            if (self._monto >= _monto) {
                 self._monto -= _monto;
                 trueCont();
             } else {
                 falseCont()
             }
+        });
+    },
+    extraer: function (_monto, cont) {
+        var self = this;
+        doLater(function () {
+            self._monto -= _monto;
+            cont()
         });
     },
     depositar: function (_monto, cont) {
