@@ -22,10 +22,10 @@ Un ejemplo fácil de una función recursiva, escrita en CPS.
 
 ### Patrones de comunicacion implementados con CPS
 
-Para demostrar el poder de CPS, algunos ejemplos de otros patrones de comunicación implemetnados mediante éste:
- * No determinsmo: Cómo parecerse a Prolog, o cómo usar listas sin tener listas. 
+Para demostrar el poder de CPS, algunos ejemplos de otros patrones de comunicación implementados mediante éste:
+ * No determinismo: Cómo parecerse a Prolog, o cómo usar listas sin tener listas. 
  * Falla: Como implementar compuaciones que pueden no tener resultado. Más adelante veremos es que este es el comportamiento de Maybe, ¡pero sin modelarlo!
- * Excepciones: Cómo puedo modelar excepciones en un lenguaje que no las tiene. O cómo hacerlas más flexibles que las que vienen con JavaScrit. 
+ * Excepciones: Cómo puedo modelar excepciones en un lenguaje que no las tiene. O cómo hacerlas más flexibles que las que vienen con JavaScript. 
 
 ### Cuentas sincrónicas
 
@@ -33,6 +33,6 @@ Un ejemplo que funciona de como modelar Cuentas y Transferencias en estilo direc
 
 #### Cuentas asincrónicas rotas
 
-El ejemplo anterior, convertido en CPS. Y cómo con unos mínimos cambios y la magia del setTimeot podemos romper absolutamente todo y ver que en JS también hay condiciones de carrera. 
+El ejemplo anterior, convertido en CPS. Y cómo con unos mínimos cambios y la magia del setTimeout podemos romper absolutamente todo y ver que en JS también hay condiciones de carrera. 
 
 Ah, pero todo tiene solución. Por suerte existen las excepciones ....¿no?
